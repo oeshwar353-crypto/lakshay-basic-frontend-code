@@ -4,7 +4,184 @@
 <meta charset="UTF-8">
 <title>Lakshya – Student Journey Planner</title>
 
-<style>
+
+</head>
+
+<body>
+
+
+<div id="home" class="section active">
+  <h1>LAKSHYA</h1>
+  <h2>Your Academic Journey, Clearly Planned</h2>
+
+  <div class="card">
+    <span class="badge">Student Tool</span>
+    <span class="badge">Self-Planning</span>
+    <span class="badge">Clarity Focused</span>
+
+    <p>
+      Lakshya helps students reflect, plan, and track their academic journey.
+      It does not tell you what to do — it helps you understand where you stand.
+    </p>
+
+    <button onclick="go('profile')">Start My Plan</button>
+  </div>
+</div>
+
+<div id="profile" class="section">
+  <div class="back" onclick="go('home')">← Back</div>
+  <h2>Student Profile</h2>
+
+  <div class="grid">
+    <div class="card">
+      <label>Name</label>
+      <input placeholder="Your name">
+
+      <label>Course</label>
+      <input placeholder="B.Tech / BCA / B.Sc">
+
+      <label>Year</label>
+      <select>
+        <option>1st Year</option>
+        <option>2nd Year</option>
+        <option>3rd Year</option>
+        <option>Final Year</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <h3>Profile Status</h3>
+      <p>Complete your profile to unlock planning features.</p>
+      <div class="progress"><div id="profileProg"></div></div>
+      <button onclick="completeProfile()">Save Profile</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="dashboard" class="section">
+  <div class="back" onclick="go('profile')">← Back</div>
+  <h2>Dashboard</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Progress Overview</h3>
+      <div class="stat" id="overallProg">0%</div>
+      <small>Overall planning completion</small>
+    </div>
+
+    <div class="card">
+      <h3>Current Focus</h3>
+      <p>Select the stage you are currently in.</p>
+    </div>
+  </div>
+
+  <div class="stage takeoff" onclick="go('before')">
+    🚀 Before College<br><small>Explore interests</small>
+  </div>
+  <div class="stage cruise" onclick="go('during')">
+    🎓 During College<br><small>Build & align skills</small>
+  </div>
+  <div class="stage landing" onclick="go('after')">
+    🎯 After College<br><small>Plan next steps</small>
+  </div>
+</div>
+
+
+<div id="before" class="section">
+  <div class="back" onclick="go('dashboard')">← Dashboard</div>
+  <h2>Interest Exploration</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Subjects You Enjoy</h3>
+      <div class="chips">
+        <span onclick="toggle(this)">Math</span>
+        <span onclick="toggle(this)">Science</span>
+        <span onclick="toggle(this)">Technology</span>
+        <span onclick="toggle(this)">Design</span>
+        <span onclick="toggle(this)">Business</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Confidence Level</h3>
+      <input type="range" oninput="updateProgress(10)">
+      <small>Low → Medium → High</small>
+    </div>
+  </div>
+</div>
+
+
+<div id="during" class="section">
+  <div class="back" onclick="go('dashboard')">← Dashboard</div>
+  <h2>Skill Building</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Skills in Progress</h3>
+      <input placeholder="Eg: Web Dev, Python">
+      <input placeholder="Eg: Communication">
+      <button class="secondary" onclick="updateProgress(15)">Save Skills</button>
+    </div>
+
+    <div class="card">
+      <h3>Weekly Effort</h3>
+      <select>
+        <option>Less than 5 hrs</option>
+        <option>5–10 hrs</option>
+        <option>10+ hrs</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+<div id="after" class="section">
+  <div class="back" onclick="go('dashboard')">← Dashboard</div>
+  <h2>Next Step Planning</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Considering</h3>
+      <button class="ghost">Job</button>
+      <button class="ghost">Higher Studies</button>
+      <button class="ghost">Skill Switch</button>
+    </div>
+
+    <div class="card">
+      <h3>Reflection</h3>
+      <input placeholder="What do you feel you need to improve?">
+      <button onclick="updateProgress(20)">Save Reflection</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let progress = 0;
+
+function go(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function toggle(el){
+  el.classList.toggle('active');
+  updateProgress(5);
+}
+
+function updateProgress(val){
+  progress = Math.min(100, progress + val);
+  document.getElementById('overallProg').innerText = progress + "%";
+}
+
+function completeProfile(){
+  document.getElementById('profileProg').style.width = "100%";
+  updateProgress(20);
+  go('dashboard');
+}
+</script>
+  <style>
 *{box-sizing:border-box;font-family:Inter,Arial,sans-serif}
 body{
   margin:0;
@@ -111,183 +288,7 @@ input,select{
   font-weight:bold;
 }
 </style>
-</head>
-
-<body>
-
-<!-- ================= HOME ================= -->
-<div id="home" class="section active">
-  <h1>LAKSHYA</h1>
-  <h2>Your Academic Journey, Clearly Planned</h2>
-
-  <div class="card">
-    <span class="badge">Student Tool</span>
-    <span class="badge">Self-Planning</span>
-    <span class="badge">Clarity Focused</span>
-
-    <p>
-      Lakshya helps students reflect, plan, and track their academic journey.
-      It does not tell you what to do — it helps you understand where you stand.
-    </p>
-
-    <button onclick="go('profile')">Start My Plan</button>
-  </div>
-</div>
-
-<!-- ================= PROFILE ================= -->
-<div id="profile" class="section">
-  <div class="back" onclick="go('home')">← Back</div>
-  <h2>Student Profile</h2>
-
-  <div class="grid">
-    <div class="card">
-      <label>Name</label>
-      <input placeholder="Your name">
-
-      <label>Course</label>
-      <input placeholder="B.Tech / BCA / B.Sc">
-
-      <label>Year</label>
-      <select>
-        <option>1st Year</option>
-        <option>2nd Year</option>
-        <option>3rd Year</option>
-        <option>Final Year</option>
-      </select>
-    </div>
-
-    <div class="card">
-      <h3>Profile Status</h3>
-      <p>Complete your profile to unlock planning features.</p>
-      <div class="progress"><div id="profileProg"></div></div>
-      <button onclick="completeProfile()">Save Profile</button>
-    </div>
-  </div>
-</div>
-
-<!-- ================= DASHBOARD ================= -->
-<div id="dashboard" class="section">
-  <div class="back" onclick="go('profile')">← Back</div>
-  <h2>Dashboard</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Progress Overview</h3>
-      <div class="stat" id="overallProg">0%</div>
-      <small>Overall planning completion</small>
-    </div>
-
-    <div class="card">
-      <h3>Current Focus</h3>
-      <p>Select the stage you are currently in.</p>
-    </div>
-  </div>
-
-  <div class="stage takeoff" onclick="go('before')">
-    🚀 Before College<br><small>Explore interests</small>
-  </div>
-  <div class="stage cruise" onclick="go('during')">
-    🎓 During College<br><small>Build & align skills</small>
-  </div>
-  <div class="stage landing" onclick="go('after')">
-    🎯 After College<br><small>Plan next steps</small>
-  </div>
-</div>
-
-<!-- ================= BEFORE ================= -->
-<div id="before" class="section">
-  <div class="back" onclick="go('dashboard')">← Dashboard</div>
-  <h2>Interest Exploration</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Subjects You Enjoy</h3>
-      <div class="chips">
-        <span onclick="toggle(this)">Math</span>
-        <span onclick="toggle(this)">Science</span>
-        <span onclick="toggle(this)">Technology</span>
-        <span onclick="toggle(this)">Design</span>
-        <span onclick="toggle(this)">Business</span>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Confidence Level</h3>
-      <input type="range" oninput="updateProgress(10)">
-      <small>Low → Medium → High</small>
-    </div>
-  </div>
-</div>
-
-<!-- ================= DURING ================= -->
-<div id="during" class="section">
-  <div class="back" onclick="go('dashboard')">← Dashboard</div>
-  <h2>Skill Building</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Skills in Progress</h3>
-      <input placeholder="Eg: Web Dev, Python">
-      <input placeholder="Eg: Communication">
-      <button class="secondary" onclick="updateProgress(15)">Save Skills</button>
-    </div>
-
-    <div class="card">
-      <h3>Weekly Effort</h3>
-      <select>
-        <option>Less than 5 hrs</option>
-        <option>5–10 hrs</option>
-        <option>10+ hrs</option>
-      </select>
-    </div>
-  </div>
-</div>
-
-<!-- ================= AFTER ================= -->
-<div id="after" class="section">
-  <div class="back" onclick="go('dashboard')">← Dashboard</div>
-  <h2>Next Step Planning</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Considering</h3>
-      <button class="ghost">Job</button>
-      <button class="ghost">Higher Studies</button>
-      <button class="ghost">Skill Switch</button>
-    </div>
-
-    <div class="card">
-      <h3>Reflection</h3>
-      <input placeholder="What do you feel you need to improve?">
-      <button onclick="updateProgress(20)">Save Reflection</button>
-    </div>
-  </div>
-</div>
-
-<script>
-let progress = 0;
-
-function go(id){
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function toggle(el){
-  el.classList.toggle('active');
-  updateProgress(5);
-}
-
-function updateProgress(val){
-  progress = Math.min(100, progress + val);
-  document.getElementById('overallProg').innerText = progress + "%";
-}
-
-function completeProfile(){
-  document.getElementById('profileProg').style.width = "100%";
-  updateProgress(20);
-  go('dashboard');
-}
-</script>
 
 </body>
 </html>
+
